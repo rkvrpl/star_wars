@@ -1,18 +1,17 @@
 "use strict"
 const choice = document.querySelector('.choice'),
-      number = document.querySelector('.number'),
-      button = document.querySelector('#button'),
-      result = document.querySelector('.result'),
-      error = document.querySelector('.error');
+    number = document.querySelector('.number'),
+    button = document.querySelector('#button'),
+    result = document.querySelector('.result'),
+    error = document.querySelector('.error');
 
-      console.log(typeof Number(number.value));
     function check() {
     try {
         if(choice.value == `select`){
             throw new Error(`Выберите предложенную категорию`);
         }
-        else if(Number(number.value) > 10 || Number(number.value) === ' '){
-            throw new Error(`Вы ввели ${number.value}.Для категории люди и планеты еобходимо ввести число от 1 до 10 и для категории фильмы от 1 до 6.`);
+        else if(number.value > 10 || number.value === ' ' || (choice.value === 'films' && number.value >= 7)){
+            throw new Error(`Вы ввели ${number.value}. Для категории люди и планеты необходимо ввести число от 1 до 10 и для категории фильмы от 1 до 6.`);
         }
         result.textContent = '';
         error.textContent = '';
@@ -21,17 +20,6 @@ const choice = document.querySelector('.choice'),
     }
     }
 
-    function checkFilm(){
-        try {
-            if(number.value >= 7 ){
-                throw new Error(`Вы ввели ${number.value}. Для категории фильмы необходимо ввести число от 1 до 6.`);
-            }
-            result.textContent = '';
-            error.textContent = '';
-        } catch (e) {
-            error.textContent = `${e.message}`;
-        }
-    }
 
     async function getChoice() {
         try{
@@ -45,7 +33,6 @@ const choice = document.querySelector('.choice'),
             error.textContent = '';
         }catch(e){
             check();
-            checkFilm();
         }finally {
             console.log('Готово');
         }
