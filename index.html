@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./assets/style/normalize.css">
+    <link rel="stylesheet" href="./assets/style/style.css">
+    <title></title>
+</head>
+<body>
+    <main>
+        <section class="choice_card">
+            <form class="form" onsubmit="return false"></form>
+            <p>Кого или что будем искать?</p>
+            <select name="choice" id="choice" class="choice">
+                <option value="select" disabled selected>Выберите категорию</option>
+                <option value="people">Люди</option>
+                <option value="planets">Планеты</option>
+                <option value="films">Фильмы</option>
+            </select>
+            <input id="number" class="number" type="number" min="1">
+            <input id="button" type="button" value="Искать!">
+        </section>
+        <section class="result_card">
+            <div class="result">
+
+            </div>
+            <div class="error">
+
+            </div>
+        </section>
+    </main>
+    <script src="./assets/script/script.js"></script>
+</body>
+</html>
