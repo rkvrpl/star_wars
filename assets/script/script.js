@@ -14,33 +14,36 @@ const choice = document.querySelector('.choice'),
             console.log("сложное условие");
             throw new Error(`Вы ввели "${number.value}". Для категории люди и планеты необходимо ввести число от 1 до 10 и для категории фильмы от 1 до 6.`);
         }
-        result.textContent = '';
-        error.textContent = '';
     } catch (e) {
+        result.textContent = '';
         error.textContent = `${e.message}`;
     }
     }
 
-
     async function getChoice() {
-        const response = await fetch(`https://swapi.dev/api/${choice.value}/${number.value}/`);
+        try {
+        const response = await fetch(
+            `https://swapi.dev/api/${choice.value}/${number.value}/`
+        );
         const data = await response.json();
-        console.log(data);
-        console.log(data.name);
-        try{
+        if (data.detail === "Not found") {
+            console.log(data.detail);
             check();
-            if (data.results) {
-                console.log(data.results);
-                return;
-            } else if (data.name === undefined) {
-                result.textContent = `Фильм: ${data.title}`;
-            } else {
-                result.textContent = `Имя: ${data.name}`;
-            }
-            error.textContent = '';
-        }catch(e){
-            console.log("Ошибка", e);
+            return;
+        } else if (data.results) {
             check();
+            return;
+        } else if (data.name === undefined) {
+            result.textContent = `Результат: ${data.title}`;
+        } else {
+            result.textContent = `Результат: ${data.name}`;
+        }
+        error.textContent = "";
+        } catch (e) {
+        check();
+        } finally {
+        console.log("Готово");
         }
     }
+
     button.addEventListener('click', getChoice); 
